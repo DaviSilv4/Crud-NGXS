@@ -1,0 +1,94 @@
+.form{
+  display: flex;
+  flex-direction: column;
+
+  label{
+    padding: 1rem 0;
+    font-size: 1.6rem;
+  }
+
+  input{
+    height: 100%;
+    border-radius: 1rem;
+    border: none;
+    padding: 1.5rem 1rem;
+    background-color: #f7f9fc;
+    border: 1px solid #e4e9f2;
+    color: #222b45;
+  }
+}
+
+.button{
+  background-color: #00d68f;
+  border-color: #00d68f;
+  color: #fff;
+  padding: 1rem;
+  border: 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.button-cancel{
+  background-color: #e73452;
+  border-color: #e73452;
+  color: #fff;
+  padding: 1rem;
+  border: 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+div{
+  display: flex;
+  flex-direction: column;
+}
+
+select{
+  width: 7rem;
+  height: 4rem;
+  border: 1px solid #e4e9f2;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+textarea{
+  height: 500px;
+  font-size: 1.6rem;
+  width: 439px;
+  resize: none;
+  border-radius: 1rem;
+  border: none;
+  padding: 1.5rem 1rem;
+  background-color: #f7f9fc;
+  border: 1px solid #e4e9f2;
+  color: #222b45;
+}
+
+@media(max-width: 768px){
+  textarea{
+    width: auto;
+  }
+
+}
+
+.button{
+  background-color: #00d68f;
+  border-color: #00d68f;
+  color: #fff;
+  padding: 1rem;
+  border: 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.button-cancel{
+  background-color: #e73452;
+  border-color: #e73452;
+  color: #fff;
+  padding: 1rem;
+  border: 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+}

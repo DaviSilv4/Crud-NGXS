@@ -1,0 +1,7 @@
+{
+  "/corporate": {
+    "target": "https://openapi-dev-internal.hdi.com.br",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

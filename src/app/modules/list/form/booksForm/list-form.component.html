@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+  <div class="form">
+    <label for="campaignCode">CampaignCode</label>
+    <input placeholder="Pesquisar" id="campaignCode" formControlName="campaignCode">
+    <div>
+      <h2>MessageType</h2>
+      <label for="smtp">SMTP</label>
+      <input type="radio" id="smtp" value="smtp" formControlName="messageType">
+      <label for="zenvia">ZENVIA</label>
+      <input type="radio" id="zenvia" value="zenvia" formControlName="messageType">
+    </div>
+    <div class="buttons">
+      <button class="buttons__search" (click)="search(form)" [disabled]="form.get('campaignCode')?.invalid && form.get('messageType')?.invalid">Pesquisar</button>
+      <button class="buttons__new" (click)="redirectNew()">Novo</button>
+    </div>
+  </div>
+</form>

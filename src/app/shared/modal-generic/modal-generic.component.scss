@@ -1,0 +1,83 @@
+.generic{
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  z-index: 3;
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s;
+
+  &__modal-button{
+    cursor: pointer;
+    background-color: #fff;
+    color: #000;
+    border-radius: 0.8rem;
+    transition: 0.3s;
+    height: 4rem;
+    border: 2px solid #5e72e4;
+    width: 10rem;
+  }
+
+  &__modal-content--button{
+    display: flex;
+    padding: 2rem 0;
+    justify-content: center;
+  }
+
+  &__modal-content{
+    position: relative;
+    background-color: #fff;
+    padding: 0 7rem;
+    border-radius: 0.8rem;
+  }
+  &__modal-title{
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #000;
+  }
+  &__modal-services{
+    row-gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+  &__modal-service{
+    display: flex;
+    list-style: none;
+    margin-bottom: 1rem;
+    gap: 1rem;
+    p{
+      font-size: 1.5rem;
+    }
+  }
+  &__modal-check{
+    width: 15px;
+    height: 15px;
+    margin-top: 5px;
+    filter: invert(31%) sepia(108%) saturate(888%) hue-rotate(219deg) brightness(100%) contrast(99%)
+  }
+
+  &__modal-close{
+    cursor: pointer;
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+    border: none;
+    background: transparent;
+
+    &--img{
+      filter: invert(31%) sepia(108%) saturate(888%) hue-rotate(219deg) brightness(100%) contrast(99%);
+      width: 13px;
+    }
+
+  }
+
+}
+
+.active-modal{
+  opacity: 1;
+  visibility: visible;
+}

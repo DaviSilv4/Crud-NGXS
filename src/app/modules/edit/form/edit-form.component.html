@@ -1,0 +1,38 @@
+<form [formGroup]="form">
+  <div class="form">
+    <div>
+      <label for="body">body</label>
+      <textarea id="body" formControlName="body" >
+
+      </textarea>
+    </div>
+    <div>
+      <label for="campaignCode">campaignCode</label>
+      <input placeholder="CampaignCode" id="campaignCode" formControlName="campaignCode">
+    </div>
+    <div>
+      <label for="messageType">messageType</label>
+      <input placeholder="MessageType" id="messageType" formControlName="messageType">
+    </div>
+    <div>
+      <label for="groupSupport">groupSupport</label>
+      <input placeholder="GroupSupport" id="groupSupport" formControlName="groupSupport">
+    </div>
+  </div>
+  <div class="form">
+    <label>isCampaing</label>
+    <select formControlName="isCampaing">
+      <option value="false">False</option>
+      <option value="true">True</option>
+    </select>
+  </div>
+  <div class="form">
+    <label>isSmtp</label>
+    <select formControlName="isSmtp">
+      <option value="false">False</option>
+      <option value="true">True</option>
+    </select>
+  </div>
+  <button (click)="onSubmit(form)" class="button">Salvar</button>
+  <button (click)="onCancel()" class="button-cancel">Cancelar</button>
+</form>

@@ -1,0 +1,22 @@
+.header{
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+  background-color: #fff;
+}
+
+.header-container{
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__logo{
+    height: 100%;
+
+    &--img{
+      width: 7rem;
+      height: 5rem;
+    }
+  }
+}
