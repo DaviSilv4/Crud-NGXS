@@ -41,15 +41,24 @@ export class ListViewComponent implements OnInit, OnDestroy {
     // this.search$.pipe().subscribe(res => this.test = res);
 
 
-    this.menuLoadedSub = this.search$.pipe(
-      tap((res) => this.test = res)
-    ).subscribe();
+
 
   }
 
   ngOnDestroy() {
     // this.menuLoadedSub.unsubscribe();
   }
+
+  getMessage(){
+    this.search$.pipe(
+      tap((res) =>{
+        debugger
+         this.test = res
+      }),
+      take(1)
+    ).subscribe();
+  }
+
   updateList(id: any){
     return this.router.navigate(['pages/edit/' + id]);
   }

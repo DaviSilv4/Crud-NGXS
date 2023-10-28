@@ -1,6 +1,6 @@
 export interface GenericModel{
   userId: number;
-  id: number;
+  id: string;
   title: string;
   body: string;
 }

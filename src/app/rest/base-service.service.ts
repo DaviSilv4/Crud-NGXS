@@ -12,8 +12,8 @@ export class BaseServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private uri = environment.url;
-  // private uri = 'https://jsonplaceholder.typicode.com/';
+  // private uri = environment.url;
+  private uri = 'https://jsonplaceholder.typicode.com/';
 
   private httpRequest(method: string, url: string, options: any): Observable<any> {
     return this.httpClient.request(method,`${this.uri}${url}`, { ...options }).pipe(take(1));

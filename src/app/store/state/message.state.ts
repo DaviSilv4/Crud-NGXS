@@ -59,8 +59,9 @@ export class MessaegeState{
   }
 
   @Action(GetMessageTeste)
-  getMessageTest(ctx: StateContext<NotifcationMessageModel>, {id}: GetMessageTeste){
-    this.apiService.getMessage("", "").pipe(
+  getMessageTest(ctx: StateContext<NotifcationMessageModel>, {payload}: GetMessageTeste){
+    debugger
+    this.apiService.getId(payload.id).pipe(
       tap(res => {
         debugger
         const state = ctx.getState();

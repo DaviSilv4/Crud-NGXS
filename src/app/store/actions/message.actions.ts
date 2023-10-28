@@ -18,7 +18,7 @@ export class GetMessage{
 
 export class GetMessageTeste{
   static readonly type = "[CRUD API] Get Test";
-  constructor(public id: MessageModel){}
+  constructor(public payload: GenericModel){}
 }
 
 export class SetSelectedMenu{

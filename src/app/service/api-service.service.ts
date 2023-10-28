@@ -22,8 +22,8 @@ export class ApiService extends BaseServiceService {
     return this.get(`?key=${this.key}&campaignCode=${campaignCode}&messageType=${messageType}`);
   }
 
-  getId(id: string | null): Observable<any>{
-    return this.get(`posts/${id}`);
+  getId(payload: string | null): Observable<any>{
+    return this.get(`posts/${payload}`);
   }
 
   save(save: Partial<GenericModel>): Observable<GenericModel>{
