@@ -6,5 +6,5 @@ export const environment = {
   production: false,
   url_message: '/corporate/integration/v1/notification/manager',
   url_events: '/corporate/integration/v1/notification/events',
-  apiKey: 'AIzaSyCbu_Hg43wZumBJ6E2P226LcbovFLWxnDQ'
+  apiKeey: 'AIzaSyCbu_Hg43wZumBJ6E2P226LcbovFLWasasa'
 };
