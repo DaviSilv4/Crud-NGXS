@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal-generic',
@@ -8,8 +9,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ModalGenericComponent implements OnInit {
 
   @Input() toggle!: boolean;
+  @Input() title!: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -18,7 +20,8 @@ export class ModalGenericComponent implements OnInit {
     if(this.toggle === true) {
       this.toggle = false;
     }
-    console.log(this.toggle);
+    this.router.navigate(['/pages/list']);
+
   }
 
 }

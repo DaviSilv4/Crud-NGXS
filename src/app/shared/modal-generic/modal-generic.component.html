@@ -1,6 +1,16 @@
 <div class="generic" [ngClass]="{'active-modal': toggle === true}">
   <div class="generic__modal-content">
-    <h4 class="generic__modal-title">Salvo com Sucesso!</h4>
+    <h4 class="generic__modal-title">{{ title }}</h4>
+    <!-- <div>
+      <h2 class="generic__modal-subtitle">CampaingCode:
+        <span class="generic__modal-subtitle-span">{{ campaingCode }}</span>
+      </h2>
+      <h2 class="generic__modal-subtitle">MessageType:
+        <span class="generic__modal-subtitle-span">{{ messageType }}</span>
+      </h2>
+    </div> -->
+
+    <ng-content> </ng-content>
     <div class="generic__modal-content--button">
       <button class="generic__modal-button" (click)="closeModal()">Fechar</button>
     </div>

@@ -1,21 +1,15 @@
-import { Injectable, NgZone } from '@angular/core';
-import { Action, Selector, State, StateContext, createSelector } from '@ngxs/store';
-import { catchError, first, map, of, take, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { catchError, of, tap } from 'rxjs';
 import { ApiService } from 'src/app/service/api-service.service';
-import { GenericModel } from 'src/app/model/generic.model';
-import { AddMessage, DeleteMenu, GetMenu, GetMessage, GetMessageTeste, SearchMenu, SetSelectedMenu, UpdateMenu } from '../actions/message.actions';
+import { AddMessage, GetMessage, GetMessageParam, GetMessageFailed, SetSelectedMenu, UpdateMenu, UpdateMessage, GetEvent, GetMessageId } from '../actions/message.actions';
 import { MessageModel } from 'src/app/model/message.model';
 
 export class NotifcationMessageModel {
-  menus!: GenericModel[];
-  menusLoaded!: boolean;
-  selectedMenu?: GenericModel;
-  selectedMessage?: MessageModel;
-  filter!: number | GenericModel;
-  message!: MessageModel;
+  menus!: MessageModel[];
+  selectedMessage!: MessageModel;
+  message?: MessageModel | any;
+  messageFailed!: string;
 }
 
 @State<NotifcationMessageModel>({
@@ -27,15 +21,12 @@ export class MessaegeState{
 
   constructor(
     private apiService: ApiService,
-    private zone: NgZone,
-    private router: Router,
-    private location: Location
     ){
   }
 
   @Selector()
-  static getMenusList(state: NotifcationMessageModel){
-    return state.menus;
+  static getMessageParam(state: NotifcationMessageModel){
+    return state.message;
   }
 
   @Selector()
@@ -44,31 +35,151 @@ export class MessaegeState{
   }
 
   @Selector()
-  static getMenusLoaded(state: NotifcationMessageModel){
-    return state.menusLoaded;
+  static getMessageFailed(state: NotifcationMessageModel){
+    return state.messageFailed;
   }
+
 
   @Selector()
   static selectedMenus(state: NotifcationMessageModel){
-    return state.selectedMenu;
+    return state.selectedMessage;
   }
 
-  @Selector()
-  static filter(state: NotifcationMessageModel){
-    return state.filter;
+  @Action(GetMessageFailed)
+  getMessageFailed(state: NotifcationMessageModel){
+    return state.messageFailed
   }
 
-  @Action(GetMessageTeste)
-  getMessageTest(ctx: StateContext<NotifcationMessageModel>, {payload}: GetMessageTeste){
-    debugger
-    this.apiService.getId(payload.id).pipe(
-      tap(res => {
-        debugger
+  @Action(GetEvent)
+  getEvent(ctx: StateContext<NotifcationMessageModel>){
+    this.apiService.getEvents().pipe(
+      tap((res) => {
         const state = ctx.getState();
-        ctx.setState({
-          ...state,
-          message: res
-        })
+        if(res.length !== 0){
+          ctx.setState({
+            ...state,
+            message: res
+          })
+        }
+        else{
+          ctx.setState({
+            ...state,
+            messageFailed: 'Falha ao pesquisar 😥'
+          })
+        }
+      })
+    ).subscribe();
+  }
+
+  @Action(GetMessageId)
+  getEventParam(ctx: StateContext<NotifcationMessageModel>, {id}: GetMessageId){
+    this.apiService.getMessage(id.messageId, "").pipe(
+      tap((res) => {
+        const state = ctx.getState();
+        if(res.length !== 0){
+          ctx.setState({
+            ...state,
+            message: res
+          })
+        }
+        else{
+          ctx.setState({
+            ...state,
+            messageFailed: 'Falha ao pesquisar 😥'
+          })
+        }
+      }),
+      catchError(() => {
+        const state = ctx.getState();
+        return of(
+          ctx.setState({
+            ...state,
+            messageFailed: `Opps! Serviço pode está temporariamente indisponível😥`
+          })
+        );
+      })
+
+    ).subscribe()
+  }
+
+  @Action(GetMessageId)
+  getMessageId(ctx: StateContext<NotifcationMessageModel>, {id}: GetMessageId){
+    this.apiService.getEventsMessageId(id.messageId).pipe(
+      tap((res) => {
+        const state = ctx.getState();
+        if(res.length !== 0){
+          ctx.setState({
+            ...state,
+            message: res
+          })
+        }
+        else{
+          ctx.setState({
+            ...state,
+            messageFailed: 'Falha ao pesquisar 😥'
+          })
+        }
+      }),
+      catchError(() => {
+        const state = ctx.getState();
+        return of(
+          ctx.setState({
+            ...state,
+            messageFailed: `Opps! Serviço pode está temporariamente indisponível😥`
+          })
+        );
+      })
+
+    ).subscribe()
+  }
+
+
+  @Action(GetMessage)
+  getMessage(ctx: StateContext<NotifcationMessageModel>){
+    this.apiService.list().pipe(
+      tap((res) => {
+        const state = ctx.getState();
+        if(res.length){
+          ctx.setState({
+            ...state,
+            message: res
+          })
+        }
+        else{
+          ctx.setState({
+            ...state,
+            messageFailed: 'Falha ao pesquisar 😥'
+          })
+        }
+      })
+    ).subscribe();
+  }
+  @Action(GetMessageParam)
+  getMessageParam(ctx: StateContext<NotifcationMessageModel>, {id}: GetMessageParam){
+    this.apiService.getMessage(id.campaignCode, id.messageType).pipe(
+      tap((res) => {
+        const state = ctx.getState();
+        if(res.length !== 0){
+          ctx.setState({
+            ...state,
+            message: res
+          })
+        }
+        else{
+          ctx.setState({
+            ...state,
+            messageFailed: 'Falha ao pesquisar 😥'
+          })
+        }
+      }),
+      catchError(() => {
+        const state = ctx.getState();
+        return of(
+          ctx.setState({
+            ...state,
+            messageFailed: `Opps! Serviço pode está temporariamente indisponível😥`
+          })
+        );
       })
 
     ).subscribe()
@@ -80,66 +191,80 @@ export class MessaegeState{
     const menusList = state.message;
 
     if(menusList === undefined){
-      return this.apiService.testSearch(id.toString()).pipe(
+      return this.apiService.getMessage(id, '').pipe(
         tap((res) => {
           const state = ctx.getState()
           ctx.setState({
             ...state,
-            message: res
+            selectedMessage: res
           })
         })
       )
     }else{
+      const index = menusList.findIndex((list: any) => list.id === id);
       ctx.setState({
         ...state,
-        selectedMessage: menusList
+        selectedMessage: menusList[index]
       })
+      return null;
     }
-    return;
+
   }
 
   @Action(AddMessage)
-  addMenu(ctx: StateContext<NotifcationMessageModel>, payload: AddMessage){
-    return this.apiService.save(payload.payload).pipe(
+  addMenu(ctx: StateContext<NotifcationMessageModel>, {payload}: AddMessage){
+    return this.apiService.save(payload).pipe(
       tap((res) => {
         const state = ctx.getState();
-
-        ctx.patchState({
-          menus: [...state.menus, res]
-        })
-      })
-    )
-  }
-
-  @Action(UpdateMenu)
-  updateMenu(ctx: StateContext<NotifcationMessageModel>, {payload}: UpdateMenu){
-    const state = ctx.getState();
-    const menuList = state.selectedMessage;
-
-    debugger
-    return this.apiService.updateIdTest("").pipe(
-      tap((res) => {
-        console.log(res);
-        ctx.patchState({
-          message: res
-        });
-      })
-    )
-  }
-
-  @Action(SearchMenu)
-  searchMenu(ctx: StateContext<NotifcationMessageModel>, {payload}: SearchMenu){
-    return this.apiService.testSearch(payload.campaignCode).pipe(
-      tap((res) => {
-        // debugger
-        console.log(res)
-        const state = ctx.getState()
         ctx.setState({
           ...state,
           message: res
         })
+      }),
+      catchError((error) => {
+        const state = ctx.getState();
+        return of(
+          ctx.dispatch(new GetMessageFailed(error)),
+          ctx.setState({
+            ...state,
+            messageFailed: error
+          })
+        );
       })
     )
+  }
+  @Action(UpdateMenu)
+  updateMenu(ctx: StateContext<NotifcationMessageModel>, {payload}: UpdateMenu){
+    this.apiService.updateId(payload).pipe(
+      tap((res) => {
+        const state = ctx.getState();
+        let menuList = state.selectedMessage;
+
+        ctx.patchState({
+          message: menuList
+        });
+      }),
+      catchError((error) => {
+        const state = ctx.getState();
+        return of(
+          ctx.dispatch(new GetMessageFailed(error)),
+          ctx.setState({
+            ...state,
+            messageFailed: error
+          })
+        );
+      })
+
+    ).subscribe();
+  }
+
+  @Action(UpdateMessage)
+  updateMessage(ctx: StateContext<NotifcationMessageModel>, {payload}: UpdateMessage){
+    ctx.patchState({
+      ...ctx.getState(),
+      message: payload,
+      messageFailed: payload
+    })
   }
 
 }

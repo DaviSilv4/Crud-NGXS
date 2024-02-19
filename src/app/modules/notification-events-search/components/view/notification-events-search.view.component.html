@@ -1,0 +1,34 @@
+<main>
+  <section class="list-container">
+    <div class="list-container__content">
+      <h1 class="list-container__title">Notificatio Events</h1>
+      <a class="list-container__redirect" (click)="redirectToMessage()">Ir para Notification Message</a>
+    </div>
+    <div class="list-container__colum">
+      <div class="list-container__view">
+        <app-notification-events-search-form></app-notification-events-search-form>
+        <div class="list-container__table--view">
+          <div class="list-container__table--indetificador" *ngFor="let indetificador of listIndetificador">
+            <span class="list-container__table--indetificador-status">{{ indetificador.id }}</span>
+            <span class="list-container__table--indetificador-status">{{ indetificador.messageId }}</span>
+            <span class="list-container__table--indetificador-status">{{ indetificador.objectKey }}</span>
+            <span class="list-container__table--indetificador-status">{{indetificador.attributes }}</span>
+            <span class="list-container__table--indetificador-status">{{indetificador.data }}</span>
+            <span class="list-container__table--indetificador-status">{{ indetificador.status }}</span>
+            <button class="list-container__table--edit">Editar</button>
+          </div>
+          <div class="list-container__table--content" *ngFor="let notification of search$ | async">
+            <span class="list-container__table--indetificador-status">{{ notification.id }}</span>
+            <span class="list-container__table--indetificador-status">{{ notification.messageId}}</span>
+            <span class="list-container__table--indetificador-status">{{ notification.objectKey }}</span>
+            <span class="list-container__table--indetificador-status">{{ notification.attributes }}</span>
+            <span class="list-container__table--indetificador-status">{{ notification.data }}</span>
+            <span class="list-container__table--indetificador-status">{{ notification.status }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<app-modal-generic [toggle] = "toggle" [title]="test">
+</app-modal-generic>

@@ -1,0 +1,98 @@
+<form [formGroup]="form">
+  <div [ngClass]="form.get('isSmtp')?.value == true ? 'form-body' : 'form-body' ">
+    <div *ngIf="form.get('messageType')?.value == 'smtp'">
+      <label for="body">body</label>
+      <textarea id="body" formControlName="body" (keydown)="handleKeydown($event)">
+      </textarea>
+    </div>
+    <div class="content">
+      <div >
+        <label for="campaignCode">Código da Campanha</label>
+        <input  placeholder="CampaignCode" id="campaignCode" formControlName="campaignCode"  [readonly]="true">
+      </div>
+      <div>
+        <h2 class="message-type">Tipo da Mensagem</h2>
+        <div class="form__data">
+          <label for="smtp">SMTP</label>
+          <input type="radio" id="smtp" value="smtp" formControlName="messageType">
+          <label for="zenvia">ZENVIA</label>
+          <input type="radio" id="zenvia" value="zenvia" formControlName="messageType">
+        </div>
+      </div>
+      <div>
+        <label for="groupSupport">Grupo de Suporte</label>
+        <input placeholder="GroupSupport" id="groupSupport" formControlName="groupSupport">
+      </div>
+
+      <div class="content-select">
+        <div>
+          <label>isCampaign</label>
+          <select class="form-select form-select-lg mb-3" formControlName="isCampaign">
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="true">True</option>
+          </select>
+        </div>
+        <div>
+          <label>isSmtp</label>
+          <select class="form-select form-select-lg mb-3" formControlName="isSmtp">
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="true">True</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+    <div class="content-destinations" *ngIf="form.get('messageType')?.value == 'zenvia'">
+      <ng-container formArrayName="destinations" *ngFor="let destinations of destinations.controls; let i = index">
+        <ng-container [formGroupName]="i">
+          <div class="content-destinations__container">
+            <div class="flex" >
+              <label for="url">Url</label>
+              <input placeholder="Url" id="url" formControlName="url" >
+            </div>
+            <div class="flex">
+              <label for="jsonLogic">Lógica JSON</label>
+              <input placeholder="Lógica JSON" formControlName="jsonLogic" >
+            </div>
+            <button class="btn-remove" (click)="removeDestinations(i)" *ngIf="i >= 1">Remove</button>
+
+          </div>
+        </ng-container>
+      </ng-container>
+
+    </div>
+    <button class="btn-add" (click)="addDestinations()" *ngIf="form.get('messageType')?.value == 'zenvia'">Add Destinations</button>
+
+  </div>
+  <button (click)="onSubmit(form)" class="button">Salvar</button>
+  <button (click)="onCancel()" class="button-cancel">Cancelar</button>
+</form>
+
+<div class="generic" [ngClass]="{'active-modal': toggle === true}">
+  <div class="generic__modal-content">
+    <h4 class="generic__modal-title">{{ title }}</h4>
+    <div class="generic__modal-image" *ngIf="!campaingCode">
+      <img src="/assets/crud/warning.png" alt="">
+    </div>
+    <div class="content-model" *ngIf="campaingCode">
+      <h2 class="content-model__message">CampaingCode:
+        <span>{{ form.get('campaignCode')?.value }}</span>
+      </h2>
+    </div>
+    <div class="generic__modal-content--button">
+      <button class="generic__modal-button" (click)="closeModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="alert" [ngClass]="{'active-alert-modal': toggleAlert === true}">
+  <div class="alert__modal-content">
+    <h4 class="alert__modal-title" [innerHTML]="title"></h4>
+    <div class="alert__modal-image" *ngIf="!campaingCode">
+      <img src="/assets/crud/warning.png" alt="">
+    </div>
+    <div class="alert__modal-content--button">
+      <button class="alert__modal-button" (click)="closeAlertModal()">Fechar</button>
+    </div>
+  </div>
+</div>

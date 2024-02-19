@@ -5,20 +5,24 @@ p, h1, h2, h3{
   margin: 0;
 }
 
+input, button{
+  font-size: 1rem;
+}
+
 .container{
-  padding: 0 20px;
+  // padding: 0 20px;
 
-  @media (min-width: 768px){
-    padding: 0 60px;
-  }
+  // @media (min-width: 768px){
+  //   padding: 0 60px;
+  // }
 
-  @media (min-width: 1440px){
-    padding: 0 115px;
-  }
+  // @media (min-width: 1440px){
+  //   padding: 0 115px;
+  // }
 
-  @media (min-width: 1920px){
-    padding: 0 300px;
-  }
+  // @media (min-width: 1920px){
+  //   padding: 0 300px;
+  // }
 }
 
 html, body{
@@ -29,5 +33,16 @@ html, body{
 
 body{
   margin: 0;
-  background-color: #dee1e4;
+  // background-color: #dee1e4;
+}
+body::-webkit-scrollbar{
+  width: 7px;
+}
+body::-webkit-scrollbar-track{
+  background-color: #f1f1f1;
+  border-radius: 2rem;
+}
+body::-webkit-scrollbar-thumb{
+  background-color: #00d68f;
+  border-radius: 1rem;
 }

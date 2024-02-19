@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'https://openapi-dev-internal.hdi.com.br/corporate/integration/v1/notification/menager',
-  apiKey: 'AIzaSyCZTVGpeTLumw-Yg-EPKC__cT_e3gO0a6A'
+  url_message: '/corporate/integration/v1/notification/manager',
+  url_events: '/corporate/integration/v1/notification/events',
+  apiKey: 'AIzaSyCbu_Hg43wZumBJ6E2P226LcbovFLWxnDQ'
 };

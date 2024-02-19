@@ -1,0 +1,48 @@
+<main>
+  <section class="list-container">
+    <div class="list-container__content">
+      <h1 class="list-container__title">Notificatio Message</h1>
+      <a class="list-container__redirect" (click)="redirectToEvents()">Ir para Notification Events</a>
+    </div>
+    <div class="list-container__colum">
+      <app-notification-message-search-form></app-notification-message-search-form>
+      <div [ngClass]="!message ? 'list-container__container-image' : 'list-container__container-image-hidden'" >
+        <img [ngClass]="!message ? 'list-container__image-desk' : 'list-container__image-desk-hidden' " src="/assets/crud/loading.svg" alt="Espera">
+      </div>
+    </div>
+    <div class="list-container__table" >
+      <div class="list-container__table--data">
+        <div class="list-container__table--action">
+          <div class="list-container__table--view" *ngIf="message">
+            <div class="list-container__table--indetificador" *ngFor="let indetificador of listIndetificador">
+              <span class="list-container__table--indetificador-status">{{ indetificador.body }}</span>
+              <span class="list-container__table--indetificador-status">{{ indetificador.campaignCode }}</span>
+              <span class="list-container__table--indetificador-status">{{ indetificador.messageType }}</span>
+              <span class="list-container__table--indetificador-status">{{indetificador.groupSupport }}</span>
+              <span class="list-container__table--indetificador-status">{{indetificador.url }}</span>
+              <span class="list-container__table--indetificador-status">{{ indetificador.jsonLogic }}</span>
+              <span class="list-container__table--indetificador-status">{{ indetificador.isCampaing }}</span>
+              <span class="list-container__table--indetificador-status">{{ indetificador.isSmtp }}</span>
+              <span class="list-container__table--indetificador-status">{{ indetificador._id }}</span>
+              <span class="list-container__table--indetificador-status">{{ indetificador.acao }}</span>
+            </div>
+            <div class="list-container__table--content" *ngFor="let notification of search$ | async; let i = index">
+              <span class="list-container__table--indetificador-status">{{ notification.body }}</span>
+              <span class="list-container__table--indetificador-status">{{ notification.campaignCode }}</span>
+              <span class="list-container__table--indetificador-status">{{ notification.messageType }}</span>
+              <span class="list-container__table--indetificador-status">{{ notification.groupSupport }}</span>
+              <span class="list-container__table--indetificador-status">{{ notification.destinations[0].url }}</span>
+              <span class="list-container__table--indetificador-status">{{ notification.destinations[0].jsonLogic }}</span>
+              <span class="list-container__table--indetificador-status">{{ notification.isCampaign }}</span>
+              <span class="list-container__table--indetificador-status">{{ notification.isSmtp }}</span>
+              <span class="list-container__table--indetificador-status">{{ notification._id }}</span>
+              <button (click)="updateList(notification)" class="list-container__table--edit">Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<app-modal-generic [toggle] = "toggle" [title]="open">
+</app-modal-generic>

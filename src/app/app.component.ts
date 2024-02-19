@@ -2,13 +2,11 @@ import { AuthApiService } from './auth/auth-api.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'notification-message-element',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  title = 'refacto';
-
   constructor(private authApiService: AuthApiService){}
 
   ngOnInit(): void {
