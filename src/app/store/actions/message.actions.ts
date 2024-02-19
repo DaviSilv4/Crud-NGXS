@@ -1,44 +1,48 @@
-import { GenericModel } from "src/app/model/generic.model";
+import { EventModel } from "src/app/model/event.model";
 import { MessageModel } from "src/app/model/message.model";
 
-// ------------------------------------------------------------
 export class AddMessage{
   static readonly type = "[CRUD API] Add Menu";
-  constructor(public payload: GenericModel){}
+  constructor(public payload: MessageModel){}
 }
 
-export class GetMenu{
-  static readonly type = "[CRUD API] Get Menu";
+export class GetMessageParam{
+  static readonly type = "[CRUD API] Get Notification Message Params";
+  constructor(public id: MessageModel){}
 }
 
 export class GetMessage{
   static readonly type = "[CRUD API] Get Notification Message";
-  constructor(public id: MessageModel){}
+}
+export class GetEvent{
+  static readonly type = "[CRUD API] Get Notification Event";
 }
 
-export class GetMessageTeste{
-  static readonly type = "[CRUD API] Get Test";
-  constructor(public payload: GenericModel){}
+export class GetMessageId{
+  static readonly type = "[CRUD API] Get Notification Event For MessageId";
+  constructor(public id: EventModel){}
+}
+
+export class GetMessageFailed {
+  static readonly type = "[Menu API] Message Failed";
+  constructor(public payload: string) {}
 }
 
 export class SetSelectedMenu{
   static readonly type = "[CRUD API] Set Selected Menu";
-  constructor(public id: number){}
-}
-
-export class DeleteMenu{
-  static readonly type = "[CRUD API] Delete Menu";
-  constructor(public id: number){}
+  constructor(public id: string){}
 }
 
 export class UpdateMenu{
   static readonly type = "[CRUD API] Update Menu";
   constructor(public payload: MessageModel){}
 }
-
-export class SearchMenu{
-  static readonly type = "[CRUD API] Search Menu";
+export class PromoteMenu{
+  static readonly type = "[CRUD API] Update Menu";
   constructor(public payload: MessageModel){}
 }
 
-// ------------------------------------------------------------
+export class UpdateMessage{
+  static readonly type = "[CRUD API] Update Message";
+  constructor(public payload: MessageModel | any){}
+}

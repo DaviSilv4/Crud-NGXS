@@ -1,38 +1,69 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Observable, take } from 'rxjs';
 import { environment } from 'src/environments/environment.dev';
-
-
+import { BACKEND } from '../auth/http-request-interceptor.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseServiceService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  // private uri = environment.url;
-  private uri = 'https://jsonplaceholder.typicode.com/';
+  private uri_mensage = environment.url_message;
+  private url_event = environment.url_events
 
-  private httpRequest(method: string, url: string, options: any): Observable<any> {
-    return this.httpClient.request(method,`${this.uri}${url}`, { ...options }).pipe(take(1));
+  private httpRequestManager(method: string, url: string, options: any): Observable<any> {
+    return this.httpClient.request(method,`${this.uri_mensage}${url}`, {...options
+     }).pipe(take(1));
+  }
+
+  private httpRequestEvent(method: string, url: string, options: any): Observable<any> {
+    return this.httpClient.request(method,`${this.url_event}${url}`, {...options
+     }).pipe(take(1));
   }
 
   protected post(url: string, body: any): Observable<any> {
-    return this.httpRequest('post', url, { body: body });
+    return this.httpRequestManager('post', url, {
+      context: new HttpContext().set(BACKEND, 'api'),
+      body: body
+   });
+  }
+
+  protected postPromote(url: string, body: any): Observable<any> {
+    return this.httpRequestManager('post', url, {
+      context: new HttpContext().set(BACKEND, 'api'),
+      body: body
+   });
   }
 
   protected get(url: string, params?: any): Observable<any> {
-    return this.httpRequest('get', url, { params: params });
+    return this.httpRequestManager('get', url, {
+      context: new HttpContext().set(BACKEND, 'api'),
+      params: params
+    }, );
   }
 
   protected put(url: string, body: any): Observable<any> {
-    return this.httpRequest('put', url, { body: body });
+    return this.httpRequestManager('put', url, {
+      context: new HttpContext().set(BACKEND, 'api'),
+      body: body
+    });
   }
 
-  protected delete(url: string): Observable<any> {
-    return this.httpRequest('delete', url, {});
+  protected getEvent(url: string, params?: any): Observable<any> {
+    return this.httpRequestEvent('get', url, {
+      context: new HttpContext().set(BACKEND, 'api'),
+      params: params
+    }, );
+  }
+
+  protected postEvent(url: string, body: any): Observable<any> {
+    return this.httpRequestEvent('post', url, {
+      context: new HttpContext().set(BACKEND, 'api'),
+      body: body
+   });
   }
 
 }

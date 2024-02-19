@@ -1,0 +1,30 @@
+<form [formGroup]="form">
+  <div class="form">
+    <label for="campaignCode">Código da Campanha</label>
+    <input placeholder="Pesquisar" id="campaignCode" formControlName="campaignCode">
+    <div>
+      <h2>Tipo da Mensagem</h2>
+      <select class="form-select form-select-lg mb-3" formControlName="messageType">
+        <option value="" selected>Selecione</option>
+        <option value="smtp">Smtp</option>
+        <option value="zenvia">Zenvia</option>
+      </select>
+    </div>
+    <div class="buttons">
+      <button class="buttons__search" (click)="search(form)">Pesquisar</button>
+      <button class="buttons__new" (click)="redirectNew()">Novo</button>
+    </div>
+  </div>
+</form>
+
+<div class="generic" [ngClass]="{'active-modal': toggle === true}">
+  <div class="generic__modal-content">
+    <h4 class="generic__modal-title">{{ title }}</h4>
+    <div class="generic__modal-image">
+      <img src="/assets/crud/warning.png" alt="">
+    </div>
+    <div class="generic__modal-content--button">
+      <button class="generic__modal-button" (click)="closeModal()">Fechar</button>
+    </div>
+  </div>
+</div>

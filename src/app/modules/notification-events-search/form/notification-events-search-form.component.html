@@ -1,0 +1,36 @@
+<form [formGroup]="form">
+  <div class="form">
+    <label for="messageId">Pesquisar por Message ID</label>
+    <input placeholder="messageId" id="messageId" formControlName="messageId">
+    <div class="content-filtro-date">
+      <div class="form-group">
+        <label for="name">De</label>
+        <input type="date" placeholder="Insira Data" class="input-value" id="date" formControlName="startDate">
+      </div>
+      <div class="form-group">
+        <label for="name">Até</label>
+        <input type="date" placeholder="Insira Data" class="input-value" id="date" formControlName="endDate">
+      </div>
+    </div>
+  </div>
+  <div class="buttons">
+    <button class="buttons__search" (click)="search(form)">Pesquisar</button>
+    <button class="buttons__new" (click)="redirectNew()">Novo</button>
+  </div>
+</form>
+
+<pre>{{ form.value | json }}</pre>
+
+
+
+<div class="generic" [ngClass]="{'active-modal': toggle === true}">
+  <div class="generic__modal-content">
+    <h4 class="generic__modal-title">{{ title }}</h4>
+    <div class="generic__modal-image">
+      <img src="/assets/crud/warning.png" alt="">
+    </div>
+    <div class="generic__modal-content--button">
+      <button class="generic__modal-button" (click)="closeModal()">Fechar</button>
+    </div>
+  </div>
+</div>

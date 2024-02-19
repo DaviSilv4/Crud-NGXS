@@ -1,0 +1,147 @@
+.list-container{
+  padding: 6rem 0 6rem;
+
+  &__content{
+    background-color: #fff;
+    height: 10rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+  }
+
+  &__view{
+    padding-bottom: 5rem;
+  }
+
+  &__image{
+    display: none;
+    @media(max-width: 768px){
+      width: 100%;
+      aspect-ratio: 1/1;
+      display: block;
+    }
+  }
+
+  &__image-desk-hidden{
+    visibility: hidden;
+    aspect-ratio: 5/2;
+    display: none;
+  }
+  &__image-desk{
+    visibility: hidden;
+    aspect-ratio: 5/2;
+    display: none;
+
+    @media(min-width: 768px){
+      display: block;
+      visibility: visible;
+      aspect-ratio: 5/4;
+      width: 100%;
+    }
+  }
+
+  &__title{
+    font-size: 1.5rem;
+
+    @media(min-width: 768px){
+      font-size: 2rem;
+    }
+  }
+
+  &__redirect{
+    position: absolute;
+    top: 2rem;
+    right: 6rem;
+    font-size: 1.4rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &__colum{
+    background-color: #fff;
+
+    @media(min-width:768px){
+      padding: 0 12rem;
+
+    }
+  }
+
+  &__table{
+    background-color: #fff;
+    border-radius: 0 0 5px 5px;
+
+    &--data{
+
+      h3{
+        font-size: 1.8rem;
+      }
+    }
+    &--action{
+      padding: 2rem 12rem;
+      display: flex;
+      justify-content: space-evenly;
+    }
+    &--edit{
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    &--view{
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    &--indetificador{
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+    &--indetificador-status{
+      padding: 1rem 1.25rem;
+      font-size: 2em;
+      font-weight: 400;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+    }
+    &--content{
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background-color: #f2f2f2;
+      height: 10rem;
+      overflow: scroll;
+    }
+  }
+}
+
+.list-container__container-image-hidden{
+  width: 430px;
+}
+
+tbody{
+  background-color: #f2f2f2;
+}
+
+th, td{
+  padding: 1rem 1.25rem;
+  font-size: 2em;
+  font-weight: 400;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+@media(max-width: 768px){
+  table{
+    display: flex;
+    justify-content: center;
+  }
+  tr{
+    display: flex;
+    flex-direction: column;
+  }
+  th{
+    font-size: 1.25rem;
+  }
+}

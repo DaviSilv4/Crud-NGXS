@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first, Observable } from 'rxjs';
 import { BaseServiceService } from '../rest/base-service.service';
-import { GenericModel } from '../model/generic.model';
-import { environment } from 'src/environments/environment.dev';
 import { MessageModel } from '../model/message.model';
+import { environment } from 'src/environments/environment.dev';
 
 
 @Injectable({
@@ -18,27 +17,36 @@ export class ApiService extends BaseServiceService {
     super(http);
   }
 
-  getMessage(campaignCode: string, messageType: string): Observable<MessageModel> {
-    return this.get(`?key=${this.key}&campaignCode=${campaignCode}&messageType=${messageType}`);
+  getMessage(campaignCode: string | null, messageType: string | null): Observable<any> {
+    return this.get(`?key=${this.key}&campaignCode=${campaignCode}&messageType=${messageType}`).pipe(first());
   }
 
-  getId(payload: string | null): Observable<any>{
-    return this.get(`posts/${payload}`);
+  getId(id: string | null): Observable<any>{
+    return this.get(`/${id}?key=${this.key}`).pipe(first());
   }
 
-  save(save: Partial<GenericModel>): Observable<GenericModel>{
-    return this.post(`posts`, save).pipe(first());
+  list(): Observable<any>{
+    return this.get(`/list?key=${this.key}`).pipe(first());
   }
 
-  testSearch(id: string): Observable<any>{
-    return this.get(`posts/${id}`);
+  save(save: Partial<MessageModel>): Observable<MessageModel>{
+    return this.post(`?key=${this.key}`, save).pipe(first());
   }
 
-  updateId(id: GenericModel): Observable<GenericModel>{
-    return this.put(`?key=${this.key}/${id.id}`, id);
+  updateId(paylod: MessageModel): Observable<MessageModel>{
+    return this.put(`/${paylod._id}?key=${this.key}`, paylod).pipe(first());
   }
 
-  updateIdTest(id: string): Observable<MessageModel>{
-    return this.put(`posts/${id}`, id);
+  getEvents(): Observable<any>{
+    return this.getEvent(`?key=${this.key}`);
   }
+
+  getEventsParams(messageId: string, start: string, end: string): Observable<any>{
+    return this.getEvent(`/teste?key=${this.key}`);
+  }
+
+  getEventsMessageId(messageId: string): Observable<any>{
+    return this.getEvent(`/${messageId}?key=${this.key}`);
+  }
+
 }
