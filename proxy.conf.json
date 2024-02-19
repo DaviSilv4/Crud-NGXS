@@ -1,6 +1,6 @@
 {
   "/corporate": {
-    "target": "https://openapi-dev-internal.teste.com.br",
+    "target": "https://op4napi.teste.com.br",
     "secure": false,
     "changeOrigin": true
   }
